@@ -1,0 +1,19 @@
+body {
+            margin: 0;
+            font-family:Verdana, Geneva, Tahoma, sans-serif
+        }
+
+
+.shell_nav{
+    background-color: aqua;
+}
+
+.content_nav{
+    display: flex;
+    justify-content: center;
+}
+.item_nav{
+    display: flex;
+    padding: 25px;
+    justify-self: center;
+}
