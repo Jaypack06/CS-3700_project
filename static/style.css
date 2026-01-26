@@ -1,19 +1,31 @@
 body {
             margin: 0;
-            font-family:Verdana, Geneva, Tahoma, sans-serif
+            font-family:Verdana, Geneva, Tahoma, sans-serif;
+            background-color: rgb(31, 30, 30);
         }
 
 
 .shell_nav{
-    background-color: aqua;
+    background-color: rgb(255, 136, 0);
 }
 
 .content_nav{
     display: flex;
     justify-content: center;
+    padding: 25px;
 }
 .item_nav{
     display: flex;
-    padding: 25px;
+    padding-left: 50px;
+    padding-right: 50px;
     justify-self: center;
+}
+.test{
+    color: white;
+}
+a{
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+    font-size: large;
 }
