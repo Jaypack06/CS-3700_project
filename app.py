@@ -3,7 +3,7 @@ from flask import Flask, redirect, url_for, render_template
 app = Flask(__name__)
 
 @app.route("/")
-def home():
+def feed():
     return render_template("feed.html")
 
 @app.route("/createProfile")
