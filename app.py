@@ -6,7 +6,7 @@ app = Flask(__name__) #Flask Constructor
 # A decorator used to tell the application 
 # which URL is associated function 
 
-@app.route("/")  
+@app.route("/feed")  
 def feed():
     posts_data = [
         {"username": "power_lifter", "content": "New PR today! 200kg Squat. Let's go!", "time": "12 MINS AGO", "type": "workout"},
