@@ -1,4 +1,4 @@
-from flask import Flask, redirect, url_for, render_template
+from flask import Flask, redirect, url_for, render_template, request
 from datetime import datetime
 
 app = Flask(__name__) #Flask Constructor
@@ -19,7 +19,7 @@ def feed():
 
 #Function is binded to the route
 @app.route("/createProfile")
-def post():
+def create_profile():
     return render_template("create_profile.html")
 
 @app.route("/profile")
