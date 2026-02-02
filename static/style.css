@@ -29,6 +29,115 @@ a{
     font-weight: 500;
     font-size: large;
 }
+
+:root {
+    --neon-green: rgb(255, 136, 0);;
+    --dark-bg: #050505;
+    --card-bg: #1a1a1a;
+}
+
+body {
+    margin: 0;
+    background-color: var(--dark-bg);
+    color: white;
+    font-family: 'Helvetica Neue', sans-serif;
+    overflow-x: hidden;
+}
+
+/* Floating Dumbbells */
+.bg-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    pointer-events: none;
+}
+
+.float-icon {
+    position: absolute;
+    font-size: 60px;
+    opacity: 0.6;
+    filter: drop-shadow(0 0 10px rgba(204, 255, 0, 0.4));
+    /* Neon glow effect */
+    animation: moveRandom 10s infinite linear alternate;
+}
+
+@keyframes moveRandom {
+    0% {
+        transform: translate(0, 0) rotate(0deg) scale(1);
+    }
+
+    50% {
+        transform: translate(60px, 80px) rotate(180deg) scale(1.1);
+    }
+
+    100% {
+        transform: translate(-40px, 40px) rotate(360deg) scale(1);
+    }
+}
+
+/*Trying something like Instagram Style Feed */
+.feed-container {
+    max-width: 480px;
+    margin: 20px auto;
+}
+
+.post-card {
+    background: var(--card-bg);
+    border: 1px solid #333;
+    margin-bottom: 25px;
+    border-radius: 4px;
+    /* Insta square-ish look */
+}
+
+.post-header {
+    padding: 12px;
+    font-weight: bold;
+    color: var(--neon-green);
+    font-size: 14px;
+}
+
+.post-image {
+    width: 100%;
+    height: 480px;
+    background: #222;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 80px;
+    border-top: 1px solid #262626;
+    border-bottom: 1px solid #262626;
+}
+
+.post-footer-icons {
+    padding: 12px 15px;
+    display: flex;
+    gap: 15px;
+    font-size: 24px;
+}
+
+.post-footer-icons span {
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.post-footer-icons span:hover {
+    transform: scale(1.2);
+    color: var(--neon-green);
+}
+
+.post-description {
+    padding: 0 15px 10px;
+}
+
+.time {
+    padding: 0 15px 15px;
+    font-size: 10px;
+    color: #8e8e8e;
+    text-transform: uppercase;
+}
 form{
     padding-top: 25%;
 }

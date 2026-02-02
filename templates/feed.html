@@ -1,6 +1,29 @@
 {% extends "base.html" %}
-{% block title %}Home  Page{% endblock %}
+
 {% block content %}
-<h1 class="test">Welcome to feed</h1>
-{% endblock%}
- 
+<div class="feed-container">
+    {% for post in posts %}
+    <div class="post-card">
+        <div class="post-header">
+            @{{ post.username }}
+        </div>
+
+        <div class="post-image">
+            {% if post.type == 'workout' %} 🏋️ {% elif post.type == 'food' %} 🥗 {% else %} 💪 {% endif %}
+        </div>
+
+        <div class="post-footer-icons">
+            <span>❤️</span>
+            <span>💬</span>
+            <span>✈️</span>
+        </div>
+
+        <div class="post-description">
+            <p><strong>{{ post.username }}</strong> {{ post.content }}</p>
+        </div>
+
+        <div class="time">{{ post.time }}</div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

@@ -1,11 +1,23 @@
-from flask import Flask, redirect, url_for, render_template, request
+from flask import Flask, redirect, url_for, render_template
+from datetime import datetime
 
-app = Flask(__name__)
+app = Flask(__name__) #Flask Constructor
 
-@app.route("/feed")
+# A decorator used to tell the application 
+# which URL is associated function 
+
+@app.route("/")  
 def feed():
-    return render_template("feed.html")
+    posts_data = [
+        {"username": "power_lifter", "content": "New PR today! 200kg Squat. Let's go!", "time": "12 MINS AGO", "type": "workout"},
+        {"username": "fit_2012", "content": "Consistency is key. 30 days challenge done.", "time": "2 HOURS AGO", "type": "body"},
+        {"username": "muscle_meals", "content": "Chicken and broccoli never tasted better.", "time": "5 HOURS AGO", "type": "food"}
+    ]
+    return render_template("feed.html", posts=posts_data)
+    # 'posts' naam se data bhej rahe hain kyunki feed.html mein 'posts' likha hai
+    return render_template("feed.html", posts=posts_data)
 
+#Function is binded to the route
 @app.route("/createProfile")
 def post():
     return render_template("create_profile.html")

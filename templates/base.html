@@ -5,17 +5,24 @@
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"/>
     </head>
     <body>
+        <div class="bg-container">
+            <span class="float-icon" style="top: 10%; left: 5%;">🏋️‍♂️</span>
+            <span class="float-icon" style="top: 40%; right: 10%;">💪</span>
+            <span class="float-icon" style="top: 70%; left: 15%;">👟</span>
+            <span class="float-icon" style="top: 20%; right: 20%;">🔥</span>
+            <span class="float-icon" style="bottom: 10%; right: 5%;">🥤</span>
+        </div>
         <nav class="shell_nav">
             <ul class="content_nav">
-            <il class="item_nav">
-                <a href="{{ url_for('feed') }}">Home</a>
-            </il>
-            <il class="item_nav">
+            <li class="item_nav">
+                <a href="{{ url_for('feed') }}">Feed</a>
+            </li>
+            <li class="item_nav">
                 <a href="{{ url_for('post') }}">Post</a>
-            </il>
-            <il class="item_nav">
+            </li>
+            <li class="item_nav">
                 <a href="{{ url_for('profile') }}">Profile</a>
-            </il>
+            </li>
             </ul>
         </nav>
         {% block content%}
