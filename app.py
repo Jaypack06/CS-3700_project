@@ -100,13 +100,11 @@ def create_post():
 
 @app.route("/", methods=["POST", "GET"])
 def login():
-    if request.method == "POST":
-        user = request.form["username"]
-        session["user"] = user
-        return redirect(url_for("profile", usr=user))
-    else:
-        return render_template("login.html")
-
+    if request.method == 'GET':
+        return render_template('login.html')
+    login_name = request.form['username']
+    
+        
 
 
 if __name__ =="__main__":
