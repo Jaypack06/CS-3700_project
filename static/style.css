@@ -165,10 +165,35 @@ body {
 .login_submit{
     display: flex;
     justify-content: center;
+    padding-top: 25px;
+    border: 2px solid orange;
+    border-radius: 8px;
+    outline: none;
+    box-shadow: 0 0 10px white;
+    width: 100px;
+    color: orange;
+    align-content: center;
 }
-
-.create_prof_button{
+.submit_container{
     display: flex;
     justify-content: center;
-    padding-top: 50px;
+    padding-top: 25px;
+}
+
+
+.create_prof_button{
+    align-self: center;
+    border: 2px solid orange;
+    border-radius: 8px;
+    outline: none;
+    box-shadow: 0 0 10px white;
+    height: 30px;
+    font-size: larger;
+    padding: 10px;
+}
+
+.create_prof_button_container{
+    display: flex;
+    justify-content: center;
+    align-content: center;
 }
