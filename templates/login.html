@@ -4,7 +4,8 @@
         <title>Login Page</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"/>
     </head>
-    <body>
+    <body style="background: linear-gradient(135deg, rgb(31, 30, 30) 0%,rgb(255, 136, 0) 100%);
+    display: flex; justify-content: center;">
         <div class="bg-container">
             <span class="float-icon" style="top: 10%; left: 5%;">🏋️‍♂️</span>
             <span class="float-icon" style="top: 40%; right: 10%;">💪</span>
@@ -22,7 +23,6 @@
             <div class="submit_container">
                 <p><input class="login_submit" type="submit" value="submit" /></p>
             </div>
-        </form>
         {% with messages = get_flashed_messages() %}
                 {% if messages %}
                     <ul style="color: red;">
@@ -34,6 +34,8 @@
             {% endwith %}
         <div class="create_prof_button_container">    
             <a class = "create_prof_button" href="{{ url_for('create_profile') }}">Create Profile</a>
-        </div>    
+        </div>  
+    </form>
+          
     </body>
 </html>
