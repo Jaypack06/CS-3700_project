@@ -2,6 +2,7 @@
 from models.post import Post
 from models.user import User
 from werkzeug.utils import secure_filename
+from models.database import db
 import os
 from flask import url_for, flash
 
