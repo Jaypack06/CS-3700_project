@@ -9,6 +9,8 @@ from models.database import db
 from models.user_service import UserService
 from models.session_manager import SessionManager, login_required
 from models.post_service import PostService
+from models.post import Comment
+
 app = Flask(__name__)
 app.secret_key = "techyeah"
 
@@ -110,6 +112,38 @@ def login():
 @app.route("/editProfile", methods=["GET", "POST"])
 def editProfile():
     return render_template("EditProfile.html")
+
+@app.route("/like/<int:post_id>", methods=["POST"])
+@login_required
+def like_post(post_id):
+    post = Post.query.get_or_404(post_id)
+    user_id = SessionManager.get_current_user_id()
+    user = User.query.get(user_id)
+
+    if user in post.likes:
+        post.likes.remove(user)
+    else:
+        post.likes.append(user)
+
+    db.session.commit()
+    return redirect(url_for('feed'))
+
+@app.route("/comment/<int:post_id>", methods=["POST"])
+@login_required
+def add_comment(post_id):
+    text = request.form.get('comment_text')
+    user_id = SessionManager.get_current_user_id()
+
+    if text:
+        new_comment = Comment(
+            text=text,
+            user_id=user_id,
+            post_id=post_id
+        )
+        db.session.add(new_comment)
+        db.session.commit()
+
+    return redirect(url_for('feed'))
 
 
 if __name__ =="__main__":

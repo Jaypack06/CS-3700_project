@@ -3,6 +3,12 @@ from models.database import db
 from models.base import BaseModel
 from datetime import datetime
 
+#Helper Table (Many to Many for Likes)
+post_likes = db.Table('post_likes',
+    db.Column('user_id', db.Integer, db.ForeignKey('users.id'), primary_key=True),
+    db.Column('post_id', db.Integer, db.ForeignKey('posts.id'), primary_key=True)
+)
+
 class Post(BaseModel):
     __tablename__ = 'posts'
     
@@ -13,25 +19,35 @@ class Post(BaseModel):
     timestamp = db.Column(db.DateTime, default=datetime.utcnow)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
     user = db.relationship('User', back_populates='posts')
+    #cascade delete - if post is deleted then comments will also be deleted
+    comments = db.relationship('Comment', backref='post', cascade="all, delete-orphan")
+    likes = db.relationship('User', secondary=post_likes, backref='liked_posts')
     
-    def __init__(self, username, image, caption):
+    def __init__(self, username, image, caption, user_id=None):
         self.username = username
         self.image = image
         self.caption = caption
+        self.user_id = user_id
         # timestamp will auto-set from default value
     
     def __repr__(self):
         return f'<Post {self.id} by {self.username}>'
     
     # OOP Methods for better encapsulation
+    #updated it with likes count and comments count and user streak
     def to_feed_dict(self):
         """Convert post to dictionary for feed display"""
         return {
+            "id": self.id,
             "username": self.username,
             "content": self.caption,
             "image_url": self.image,
             "time": self.timestamp.strftime("%I:%M %p") if self.timestamp else "",
-            "type": "body"
+            "likes_count": len(self.likes),    #like count
+            "comments_count": len(self.comments), #comment count
+            "user_streak": self.user.get_streak() if self.user else 0, #user streak
+            "type": "body",
+            "comments": self.comments
         }
     
     def to_dict(self):
@@ -83,3 +99,16 @@ class Post(BaseModel):
         if len(self.caption) <= length:
             return self.caption
         return self.caption[:length] + "..."
+    
+    #comment model 
+class Comment(BaseModel):
+    __tablename__ = 'comments'
+    id = db.Column(db.Integer, primary_key=True)
+    text = db.Column(db.String(200), nullable=False)
+    timestamp = db.Column(db.DateTime, default=datetime.utcnow)
+    
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'))
+    post_id = db.Column(db.Integer, db.ForeignKey('posts.id'))
+    
+    # Ye line commenter ka naam nikalne mein madad karegi
+    commenter = db.relationship('User', backref='my_comments')
