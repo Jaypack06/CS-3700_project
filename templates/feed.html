@@ -1,35 +1,83 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="feed-container">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap"
+    rel="stylesheet">
+
+<div class="feed-wrapper">
+
+    {% if posts %}
     {% for post in posts %}
     <div class="post-card">
+
+        <!-- Header -->
         <div class="post-header">
-            @{{ post.username }}
+            <span class="post-username">{{ post.username }}</span>
+            <span class="streak-badge">🔥 {{ post.user_streak }} Days</span>
         </div>
 
-        {% if post.image_url %}
-        <div class="post-image">
-            <img src="{{ post.image_url }}" alt="Post image" style="max-width:100%; height:auto;">
+        <!-- Media -->
+        <div class="post-media">
+            {% if post.image_url %}
+            <img src="{{ post.image_url }}" alt="Post by {{ post.username }}">
+            {% else %}
+            <span class="post-media-placeholder">
+                {% if post.type == 'workout' %}🏋️{% elif post.type == 'food' %}🥗{% else %}💪{% endif %}
+            </span>
+            {% endif %}
         </div>
-        {% else %}
-        <div class="post-image">
-            {% if post.type == 'workout' %} 🏋️ {% elif post.type == 'food' %} 🥗 {% else %} 💪 {% endif %}
+
+        <!-- Caption -->
+        {% if post.content %}
+        <div class="post-caption">
+            <strong>{{ post.username }}</strong>{{ post.content }}
         </div>
         {% endif %}
 
-        <div class="post-footer-icons">
-            <span>❤️</span>
-            <span>💬</span>
-            <span>✈️</span>
+        <!-- Actions -->
+        <div class="post-actions">
+            <!-- FIX: Added like-form class for proper alignment -->
+            <form action="{{ url_for('like_post', post_id=post.id) }}" method="POST" class="like-form">
+                <button type="submit" class="action-btn like-btn">
+                    <span class="icon">❤️</span>
+                    <span class="count">{{ post.likes_count }}</span>
+                </button>
+            </form>
+            <div class="action-btn">
+                <span class="icon">💬</span>
+                <span class="count">{{ post.comments_count }}</span>
+            </div>
         </div>
 
-        <div class="post-description">
-            <p><strong>{{ post.username }}</strong> {{ post.content }}</p>
+        <div class="post-divider"></div>
+
+        <!-- Comments -->
+        <div class="comments-section">
+            {% for comment in post.comments %}
+            <div class="comment-item">
+                <span class="comment-author">@{{ comment.commenter.username }}</span>
+                <span class="comment-text">{{ comment.text }}</span>
+            </div>
+            {% endfor %}
+
+            <!-- FIX: Added novalidate and proper alignment -->
+            <form action="{{ url_for('add_comment', post_id=post.id) }}" method="POST" class="comment-form">
+                <input type="text" name="comment_text" class="comment-input" placeholder="Drop a comment..." required
+                    maxlength="300">
+                <button type="submit" class="comment-submit" aria-label="Post comment">➤</button>
+            </form>
         </div>
 
-        <div class="time">{{ post.time }}</div>
+        <div class="post-time">{{ post.time }}</div>
     </div>
     {% endfor %}
+
+    {% else %}
+    <div class="empty-feed">
+        <div class="big-icon">🏜️</div>
+        <p>No posts yet. Be the first to post your grind!</p>
+    </div>
+    {% endif %}
 </div>
+
 {% endblock %}
