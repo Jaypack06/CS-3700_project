@@ -108,8 +108,20 @@ def login():
         return render_template("login.html")
 
 @app.route("/editProfile", methods=["GET", "POST"])
+@login_required
 def editProfile():
-    return render_template("EditProfile.html")
+    user_id = SessionManager.get_current_user_id()
+    user = User.query.get(user_id)
+
+    if request.method == "POST":
+        bio = request.form.get("bio")
+        user.bio = bio
+        db.session.commit()
+
+        flash("Profile updated!")
+        return redirect(url_for("profile"))
+
+    return render_template("EditProfile.html", user=user)
 
 
 if __name__ =="__main__":
