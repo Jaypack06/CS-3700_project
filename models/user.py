@@ -8,6 +8,7 @@ class User(BaseModel):
     id = db.Column(db.Integer, primary_key = True)
     username = db.Column(db.String(80), unique=True, nullable=False)
     role = db.Column(db.String(50))
+    bio = db.Column(db.String(250))
     posts = db.relationship('Post', back_populates='user')
     
     def __init__(self, username, role):

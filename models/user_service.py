@@ -35,6 +35,7 @@ class UserService:
         return {
             'username': user.username,
             'role': user.role,
+            'bio': user.bio,
             'post_count': len(user.posts),
             'member_since': user.created_at
         }
