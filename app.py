@@ -10,6 +10,7 @@ from models.user_service import UserService
 from models.session_manager import SessionManager, login_required
 from models.post_service import PostService
 from models.post import Comment
+from flask_migrate import Migrate
 
 app = Flask(__name__)
 app.secret_key = "techyeah"
@@ -19,6 +20,8 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 # Initialize db with app
 db.init_app(app)
+
+migrate = Migrate(app, db)
 
 # Create tables and test within app context
 with app.app_context():
