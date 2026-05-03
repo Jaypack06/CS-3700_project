@@ -16,7 +16,13 @@
                 <p class="bio" id="bio">No bio available.</p>
             {% endif %}
         </div>
+        <div class="profileStats">
+            <p class="stat">🏋️ {{ post_count }} Posts</p>
+            <p class="stat">❤️ {{ total_likes }} Likes</p>
+            <p class="stat">💬 {{ total_comments }} Comments</p>
+        </div>
     </div>
+
 
     <div class="edit-btn-wrapper">
         <button class="edit-btn" onclick="window.location.href='{{ url_for('editProfile') }}'">Edit your profile</button>
@@ -32,13 +38,11 @@
         {% for post in posts %}
         <div class="post-card">
 
-            <!-- Header -->
             <div class="post-header">
                 <span class="post-username">{{ post.username }}</span>
                 <span class="streak-badge">🔥 {{ post.user_streak }} Days</span>
             </div>
 
-            <!-- Media -->
             <div class="post-media">
                 {% if post.image_url %}
                 <img src="{{ post.image_url }}" alt="Post by {{ post.username }}">
@@ -49,16 +53,13 @@
                 {% endif %}
             </div>
 
-            <!-- Caption -->
             {% if post.content %}
             <div class="post-caption">
                 <strong>{{ post.username }}</strong>{{ post.content }}
             </div>
             {% endif %}
 
-            <!-- Actions -->
             <div class="post-actions">
-                <!-- FIX: Added like-form class for proper alignment -->
                 <form action="{{ url_for('like_post', post_id=post.id) }}" method="POST" class="like-form">
                     <button type="submit" class="action-btn like-btn">
                         <span class="icon">❤️</span>
@@ -72,8 +73,7 @@
             </div>
 
             <div class="post-divider"></div>
-
-            <!-- Comments -->
+ 
             <div class="comments-section">
                 {% for comment in post.comments %}
                 <div class="comment-item">

@@ -32,12 +32,18 @@ class UserService:
         user = User.get_by_id(user_id)
         if not user:
             return None
+        
+        total_likes = sum(len(post.likes) for post in user.posts)
+        total_comments = sum(len(post.comments) for post in user.posts)
+
         return {
             'username': user.username,
             'role': user.role,
             'bio': user.bio,
             'posts': [post.to_feed_dict() for post in user.posts],
             'post_count': len(user.posts),
+            'total_likes': total_likes,
+            'total_comments': total_comments,
             'member_since': user.created_at
         }
     
