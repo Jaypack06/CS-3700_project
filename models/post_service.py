@@ -99,7 +99,8 @@ class PostService:
         new_post = Post(
             username=user.username, 
             image=image_url or '', 
-            caption=caption_text
+            caption=caption_text,
+            user_id=user_id
         )
         
         # Save to database using BaseModel method

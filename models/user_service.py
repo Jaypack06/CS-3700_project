@@ -36,6 +36,7 @@ class UserService:
             'username': user.username,
             'role': user.role,
             'bio': user.bio,
+            'posts': [post.to_feed_dict() for post in user.posts],
             'post_count': len(user.posts),
             'member_since': user.created_at
         }

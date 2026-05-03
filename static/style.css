@@ -719,3 +719,91 @@ form {
 .empty-feed p {
     font-size: 0.95rem;
 }
+
+/* Profile section — two cards side by side */
+.profile-section {
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  gap: 5rem;
+  flex-wrap: wrap;       /* stacks on small screens */
+  margin: 2rem auto;
+  padding: 0 1.5rem;
+}
+
+.profile {
+  flex: 0 1 260px;
+  padding: 2rem 1.5rem;
+  border: 2px solid orange;
+  border-radius: 12px;
+  font-family: Arial, sans-serif;
+  background-color: rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.profileBio {
+  flex: 0 1 320px;
+  padding: 2rem 1.5rem;
+  border: 2px solid orange;
+  border-radius: 12px;
+  font-family: Arial, sans-serif;
+  background-color: rgba(255, 255, 255, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Username */
+.username {
+  font-size: 22px;
+  color: white;
+  text-align: center;
+  margin: 0;
+}
+
+/* Role */
+.role {
+  font-size: 15px;
+  color: #ccc;
+  text-align: center;
+  margin: 0;
+}
+
+/* Bio text */
+.bio {
+  font-size: 15px;
+  color: #ddd;
+  text-align: center;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Edit button — centered now */
+.edit-btn-wrapper {
+  display: flex;
+  justify-content: center;
+  margin: 1.5rem 0;
+}
+
+.edit-btn {
+  padding: 8px 20px;
+  border: 2px solid orange;
+  background-color: transparent;
+  cursor: pointer;
+  border-radius: 6px;
+  color: white;
+  font-size: 14px;
+}
+
+.edit-btn:hover {
+  background-color: rgba(255, 165, 0, 0.15);
+}
+
+hr {
+  border: none;
+  border-top: 3px solid orange;
+  margin: 0;
+}
