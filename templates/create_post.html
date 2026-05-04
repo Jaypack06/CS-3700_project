@@ -1,18 +1,31 @@
 {% extends "base.html" %}
 {% block title %}Create Post{% endblock %}
 {% block content %}
+    <h1 class="login_name" style="text-align: center;">CREATE POST</h1>
+    <br>
     <div class="create-post">
-        <h2>Create Post</h2>
         
         <form action="" method="post" enctype="multipart/form-data">
-            <label for="image">Choose an image</label>
-            <input type="file" id="image" name="image" accept="image/*" required>
+            <div class="post-card upload-preview">
+                <!-- Header with username -->
+                <div class="post-header">
+                    <span class="post-username">{{ username }}</span>
+                </div>
+
+                <!-- Media - image upload area -->
+                <div class="post-media" id="uploadContainer">
+                    <img id="uploadPreview" src="{{ url_for('static', filename='upload_icon.png') }}" alt="Upload your image!">
+                </div>
+
+                <!-- Caption input -->
+                <div class="post-caption">
+                    <textarea id="text" name="text" placeholder="Add text / caption" class="caption-input"></textarea>
+                </div>
+            </div>
+
+            <input type="file" id="image" name="image" accept="image/*" required style="display: none">
             <br>
-            <label for="text">Add text / caption</label>
-            <br>
-            <textarea id="text" name="text" rows="4" cols="50" placeholder="Write a caption..."></textarea>
-            <br>
-            <button type="submit">Upload Post</button>
+            <button type="submit" class="submit-btn">Upload Post</button>
         </form>
 
         {% if image_url %}
@@ -27,6 +40,37 @@
         {% endif %}
         
     </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var input = document.getElementById('image');
+            var container = document.getElementById('uploadContainer');
+            var preview = document.getElementById('uploadPreview');
+            var textarea = document.getElementById('text');
+
+            if (!input || !preview) return;
+
+            // Click the upload container to trigger file input
+            container.addEventListener('click', function() {
+                input.click();
+            });
+
+            // Update preview when file is selected
+            input.addEventListener('change', function(event) {
+                var file = event.target.files[0];
+                if (!file) return;
+                preview.src = URL.createObjectURL(file);
+            });
+
+            // Auto-expand textarea as user types
+            if (textarea) {
+                textarea.addEventListener('input', function() {
+                    this.style.height = 'auto';
+                    this.style.height = Math.min(this.scrollHeight, 300) + 'px';
+                });
+            }
+        });
+    </script>
+
 {% endblock%}
 
- 

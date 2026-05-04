@@ -91,12 +91,14 @@ def create_post():
         if errors:
             for error in errors:
                 flash(error)
-            return render_template("create_post.html")
+            username = session.get('username', 'User')
+            return render_template("create_post.html", username=username)
         
         flash("Post created successfully!")
         return redirect(url_for("feed"))
     
-    return render_template("create_post.html")
+    username = session.get('username', 'User')
+    return render_template("create_post.html", username=username)
 
 @app.route("/", methods=["POST", "GET"])
 def login():
@@ -107,6 +109,7 @@ def login():
 
     if user:
         SessionManager.set_user_session(user.id)
+        session['username'] = user.username
         return redirect(url_for('profile'))
     else:
         flash("Username not found!")
